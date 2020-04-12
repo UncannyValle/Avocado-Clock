@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Parameter from "./components/parameter";
+import Timer from "./components/timer";
 
-function App() {
+const App = () => {
+  //State
+  const [breakie, setBreakie] = useState(5);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds,setSeconds] = useState("00");
+  const [version, setVersion] = useState('Time Left to Work')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div id="main-wrapper">
+      <h1 id="title">Avocado Clock</h1>
+      <p>
+        A more delicious task clock! wet how long your break should be and how
+        long you should work!
+      </p>{" "}
+      <hr />
+      <h2> Be more productive!</h2>
+      <div id="times">
+        <Parameter
+          title="How long is your break?"
+          label="break-label"
+          decrement="break-decrement"
+          increment="break-increment"
+          length="break-length"
         >
-          Learn React
-        </a>
-      </header>
+          {breakie}
+        </Parameter>
+        <Parameter
+          title="How long are you working for?"
+          label="session-label"
+          decrement="session-decrement"
+          increment="session-increment"
+          length="session-length"
+        >
+          {minutes}
+        </Parameter>
+      </div>
+      <Timer vers={version}>
+        {minutes}:{seconds}
+      </Timer>
     </div>
   );
-}
-
+};
 export default App;
