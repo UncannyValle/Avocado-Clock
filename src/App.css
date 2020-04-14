@@ -15,6 +15,7 @@
   text-align: center;
   margin: 0 auto;
   background-color: #ebc06e;
+  border-radius: 25%;
 }
 #break-increment,
 #break-decrement,
@@ -48,10 +49,13 @@
   margin: 2rem 0;
 }
 button {
-  padding: 1rem;
+  padding: 2rem;
   background-color: #ebc06e;
   border: none;
   transition: 0.3s;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 button:hover {
   background-color: #4a9e74;
