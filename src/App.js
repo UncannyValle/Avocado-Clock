@@ -9,58 +9,95 @@ const App = () => {
   //State
   const [breakie, setBreakie] = useState(5);
   const [minutes, setMinutes] = useState(25);
-  const [session, setSession] = useState(minutes);
-  const [timer, setTimer] = useState(25 + ":00");
+  const [session, setSession] = useState(25);
+  const [timer, setTimer] = useState("START");
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
+  const [moment, setMoment] = useState("Get To Work!");
 
   const timerButton = () => {
     running ? setRunning(false) : setRunning(true);
+    if (timer === "START" && session >= 10) {
+      setMinutes(session);
+    } else if (timer === "START" && session < 10) {
+      setMinutes(session);
+      setTimer("0" + minutes + ":0" + seconds);
+    }
   };
 
   useEffect(() => {
     if (minutes > 10 && seconds === -1 && running) {
-      setSeconds(9);
+      setSeconds(59);
       setMinutes(minutes - 1);
       setTimer(minutes + ":00");
-    } else if (minutes <= 10 && seconds === -1 && running) {
-      setSeconds(9);
-      setMinutes("0" + (minutes - 1));
-    } else if (running && seconds > 10) {
+    } else if (minutes <= 10 && minutes > 0 && seconds === -1 && running) {
+      // let min = minutes - 1;
+      setSeconds(59);
+      setMinutes(minutes - 1);
+      setTimer("0" + minutes + ":00");
+      console.log(moment, minutes);
+    } else if (
+      minutes === 0 &&
+      seconds === -1 &&
+      moment === "Get To Work!" &&
+      running
+    ) {
+      console.log("ding");
+      setMinutes(breakie - 1);
+      setSeconds(59);
+      setMoment("Chill for a bit");
+    } else if (
+      minutes === 0 &&
+      seconds === -1 &&
+      moment === "Chill for a bit" &&
+      running
+    ) {
+      setMinutes(session - 1);
+      setSeconds(59);
+      setMoment("Get To Work!");
+    } else if (running && seconds >= 10) {
       setTimeout(() => {
         setSeconds(seconds - 1);
-        setTimer(minutes + ":" + seconds);
+        setTimer(() => {
+          if (minutes >= 10) {
+            return minutes + ":" + seconds;
+          } else {
+            return "0" + minutes + ":" + seconds;
+          }
+        });
       }, 1000);
-    } else if (running && seconds >= 0 && seconds <= 10) {
+    } else if (running && seconds >= 0 && seconds < 10) {
       setTimeout(() => {
         setSeconds(seconds - 1);
-        setTimer( minutes + ":0" + seconds);
+        setTimer(() => {
+          if (minutes >= 10) {
+            return minutes + ":0" + seconds;
+          } else {
+            return "0" + minutes + ":0" + seconds;
+          }
+        });
       }, 1000);
     }
-  }, [minutes, seconds, running]);
-  //buttons increase and decrease on click
+  }, [minutes, seconds, running, breakie, session, moment]);
+
   const decreaseBreakie = () => {
     if (breakie > 1) {
       setBreakie(breakie - 1);
     }
   };
   const increaseBreakie = () => {
-    if (breakie > 1) {
+    if (breakie < 60) {
       setBreakie(breakie + 1);
     }
   };
   const decreaseSession = () => {
     if (session > 1) {
-      let curr = session - 1;
-      setSession(curr);
-      setMinutes(curr);
+      setSession(session - 1);
     }
   };
   const increaseSession = () => {
-    if (minutes > 1) {
-      let curr = session + 1;
-      setMinutes(curr);
-      setSession(curr);
+    if (minutes < 60) {
+      setSession(session + 1);
     }
   };
   const resetNow = () => {
@@ -68,7 +105,7 @@ const App = () => {
     setBreakie(5);
     setMinutes(25);
     setSeconds(0);
-    setTimer(25 + ":00");
+    setTimer("START");
     setSession(25);
   };
 
@@ -105,6 +142,7 @@ const App = () => {
           {session}
         </Parameter>
       </div>
+      <h1 id="timer-label">{moment} </h1>
       <Timer>{timer}</Timer>
       <div id="buttons">
         <StartStop clickHandler={timerButton} />
