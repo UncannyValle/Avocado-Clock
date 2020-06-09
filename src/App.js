@@ -113,7 +113,7 @@ const App = () => {
     <div id="main-wrapper">
       <h1 id="title">Avocado Clock</h1>
       <p>
-        A more delicious task clock! wet how long your break should be and how
+        A more delicious task clock! Set how long your break should be and how
         long you should work!
       </p>{" "}
       <hr />
