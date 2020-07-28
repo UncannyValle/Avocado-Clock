@@ -1,21 +1,45 @@
 #main-wrapper {
   text-align: center;
-  background-color: rgb(135, 235, 185);
-  max-width: 940px;
+  background-color: rgb(194, 248, 221);
   margin: 0 auto;
   padding: 0 10px;
-  height: 100vh;
+  max-height: 100vh;
 }
 #times {
   display: flex;
-  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 100%;
 }
 .parameter {
-  width: 33%;
+  width: 35rem;
+  padding: 2em;
   text-align: center;
-  margin: 0 auto;
-  background-color: #ebc06e;
-  border-radius: 25%;
+  margin: 0 1rem;
+  background: rgb(201, 126, 71);
+  background: radial-gradient(
+    circle,
+    rgba(201, 126, 71, 1) 0%,
+    rgba(242, 234, 196, 1) 18%,
+    rgba(170, 190, 76, 1) 86%
+  );
+  border-radius: 50%;
+  border: black solid 5px;
+  color: #6e4b40;
+}
+.session-label,
+.break-label {
+  font-size: 3rem;
+}
+/* .parameter:after {
+  width: 38%;
+  position: absolute;
+  border: green solid 5px;
+  top: 10px;
+  display: block;
+} */
+#title {
+  margin: 0;
 }
 #break-increment,
 #break-decrement,
@@ -35,6 +59,9 @@
 #break-length {
   font-size: 3rem;
 }
+#timer-label {
+  margin: 0.5rem auto;
+}
 .picker {
   display: flex;
   justify-content: space-evenly;
@@ -46,12 +73,19 @@
 #buttons {
   display: flex;
   justify-content: space-evenly;
-  margin: 2rem 0;
+  margin: 2rem auto;
+  width: 100%;
 }
-button {
+.start-stop {
   padding: 2rem;
-  background-color: #ebc06e;
-  border: none;
+  background: rgb(201, 126, 71);
+  background: radial-gradient(
+    circle,
+    rgba(201, 126, 71, 1) 0%,
+    rgba(242, 234, 196, 1) 26%,
+    rgba(170, 190, 76, 1) 100%
+  );
+  border: black solid 5px;
   transition: 0.3s;
   border-radius: 50%;
   font-weight: 700;

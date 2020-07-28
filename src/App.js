@@ -117,7 +117,6 @@ const App = () => {
         long you should work!
       </p>{" "}
       <hr />
-      <h2> Be more productive!</h2>
       <div id="times">
         <Parameter
           title="How long is your break?"
