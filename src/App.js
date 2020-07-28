@@ -13,15 +13,21 @@ const App = () => {
   const [timer, setTimer] = useState("START");
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
-  const [moment, setMoment] = useState("Get To Work!");
+  const [message, setMessage] = useState("Get To Work!");
+  const [moment, setMoment] = useState("work");
 
   const timerButton = () => {
-    running ? setRunning(false) : setRunning(true);
+    !running ? setRunning(true) : setMessage("Paused!");
+
     if (timer === "START" && session >= 10) {
       setMinutes(session);
     } else if (timer === "START" && session < 10) {
       setMinutes(session);
       setTimer("0" + minutes + ":0" + seconds);
+    } else if (message === "Paused!" && moment === "work" && running) {
+      setMessage("Get To Work!");
+    } else if (message === "Paused!" && moment === "play" && running) {
+      setMessage("Chill for a bit");
     }
   };
 
@@ -39,17 +45,18 @@ const App = () => {
     } else if (
       minutes === 0 &&
       seconds === -1 &&
-      moment === "Get To Work!" &&
+      moment === "work" &&
       running
     ) {
       console.log("ding");
       setMinutes(breakie - 1);
       setSeconds(59);
-      setMoment("Chill for a bit");
+      setMessage("Chill for a bit");
+      setMoment("play");
     } else if (
       minutes === 0 &&
       seconds === -1 &&
-      moment === "Chill for a bit" &&
+      moment === "play" &&
       running
     ) {
       setMinutes(session - 1);
@@ -77,6 +84,10 @@ const App = () => {
           }
         });
       }, 1000);
+    } else if (running === false) {
+      setSeconds(0);
+      setTimer("START");
+      setMinutes(25);
     }
   }, [minutes, seconds, running, breakie, session, moment]);
 
@@ -103,9 +114,6 @@ const App = () => {
   const resetNow = () => {
     setRunning(false);
     setBreakie(5);
-    setMinutes(25);
-    setSeconds(0);
-    setTimer("START");
     setSession(25);
   };
 
@@ -141,7 +149,7 @@ const App = () => {
           {session}
         </Parameter>
       </div>
-      <h1 id="timer-label">{moment} </h1>
+      <h1 id="timer-label">{message} </h1>
       <Timer>{timer}</Timer>
       <div id="buttons">
         <StartStop clickHandler={timerButton} />
