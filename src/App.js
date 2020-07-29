@@ -4,11 +4,13 @@ import Parameter from "./components/parameter";
 import Timer from "./components/timer";
 import StartStop from "./components/startStop";
 import { Reset } from "./components/reset";
+import useSound from "use-sound";
+import ding from "./ding_mixdown.mp3";
 
 const App = () => {
   //State
   const [breakie, setBreakie] = useState(5);
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState(25);
   const [session, setSession] = useState(25);
   const [timer, setTimer] = useState("25:00");
   const [seconds, setSeconds] = useState(0);
@@ -33,6 +35,7 @@ const App = () => {
     }
   };
 
+  const [alarm] = useSound(ding, { volume: 0.25 });
   useEffect(() => {
     if (running === false) {
       setSeconds(0);
@@ -66,6 +69,8 @@ const App = () => {
           }
         });
       }, 1000);
+    } else if (minutes === 0 && seconds === 5 && running) {
+      alarm();
     } else if (minutes > 10 && seconds === -1 && running) {
       setSeconds(59);
       setMinutes(minutes - 1);
@@ -82,11 +87,11 @@ const App = () => {
       moment === "work" &&
       running
     ) {
-      console.log("ding");
       setMinutes(breakie - 1);
       setSeconds(59);
       setMessage("Chill for a bit");
       setMoment("play");
+      alert("ding! Take a break!");
     } else if (
       minutes === 0 &&
       seconds === -1 &&
@@ -95,9 +100,16 @@ const App = () => {
     ) {
       setMinutes(session - 1);
       setSeconds(59);
-      setMoment("Get To Work!");
+      setMoment("work");
+      setMessage("Get To Work!");
+      alert("Get ready to work...");
     }
-  }, [minutes, seconds, running, breakie, session, moment, message]);
+
+
+    if (minutes === 0 && seconds === 3 && running) {
+      alarm();
+    } 
+  }, [minutes, seconds, running, breakie, session, moment, message, alarm]);
 
   const decreaseBreakie = () => {
     if (breakie > 1) {
