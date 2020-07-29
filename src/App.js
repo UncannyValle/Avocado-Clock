@@ -105,10 +105,9 @@ const App = () => {
       alert("Get ready to work...");
     }
 
-
     if (minutes === 0 && seconds === 3 && running) {
       alarm();
-    } 
+    }
   }, [minutes, seconds, running, breakie, session, moment, message, alarm]);
 
   const decreaseBreakie = () => {
@@ -148,11 +147,13 @@ const App = () => {
 
   return (
     <div id="main-wrapper">
-      <h1 id="title">Avocado Clock</h1>
-      <p>
-        A more delicious task clock! Set how long your break should be and how
-        long you should work!
-      </p>{" "}
+      <div className="header">
+        <h1 id="title">The Avocado Clock</h1>
+        <p>
+          A more delicious task clock! Set how long your break should be and how
+          long you should work! <br/> Once set you can't go back unless you reset. Commit to your time and let's get productive!
+        </p>{" "}
+      </div>
       <hr />
       <div id="times">
         <Parameter
@@ -166,6 +167,10 @@ const App = () => {
         >
           {breakie}
         </Parameter>
+        <div className="timer-wrapper">
+          <h1 id="timer-label">{message} </h1>
+          <Timer>{timer}</Timer>
+        </div>
         <Parameter
           title="How long are you working for?"
           label="session-label"
@@ -178,10 +183,8 @@ const App = () => {
           {session}
         </Parameter>
       </div>
-      <div className="timer-wrapper">
-        <h1 id="timer-label">{message} </h1>
+      <div className="buttons">
         <StartStop clickHandler={timerButton} />
-        <Timer>{timer}</Timer>
         <Reset clickHandler={resetNow} />
       </div>
     </div>

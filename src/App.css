@@ -1,36 +1,44 @@
 #main-wrapper {
   text-align: center;
-  background: #74f8b6;
+  background-image: url("./avocado_kawaii.jpg");
+  background-position: center;
+  background-size: cover;
   margin: 0 auto;
   padding: 0 10px;
+  height: 100%;
+}
+
+p {
+  font-size: 1.5rem;
+  margin: 0;
+  background-color: #52f7a4;
+  display: inline-block;
+  padding:.2rem;
 }
 #times {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
 }
 .parameter {
-  width: 30rem;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 25rem;
+  padding: 0.5rem;
   text-align: center;
-  margin: 1rem;
-  background-color: rgb(61, 255, 71);
-
-  border: black solid 5px;
-  color: #6e4b40;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin: 0 2rem;
+  background-color: #c5ed65;
+  font-size: 1.5rem;
 }
 .session-label,
 .break-label {
   font-size: 3rem;
 }
-/* .parameter:after {
-  width: 38%;
-  position: absolute;
-  border: green solid 5px;
-  top: 10px;
-  display: block;
-} */
+
 #title {
   margin: 0;
   margin: 1rem auto;
@@ -52,7 +60,7 @@
 #break-decrement:hover,
 #session-increment:hover,
 #session-decrement:hover {
-  color: #9e8452;
+  color: #2efd96;
   cursor: pointer;
 }
 #session-length,
@@ -60,10 +68,11 @@
   font-size: 3rem;
 }
 #timer-label {
-  margin: 0.5rem auto;
-  position: relative;
-  bottom: 2rem;
-  color: #6e4b40;
+  margin: 0 auto;
+  padding: 1rem 0 0.25rem;
+  color: white;
+  font-size: 3rem;
+  background-color: #6e4b40;
 }
 .picker {
   display: flex;
@@ -71,42 +80,37 @@
   align-items: center;
 }
 #time-left {
-  font-size: 5rem;
-  color: #2efd96;
+  font-size: 10rem;
+  color: black;
 }
-#buttons {
+.buttons {
   display: flex;
-  justify-content: space-evenly;
-  margin: 2rem auto;
+  justify-content: center;
+  margin: 0 auto;
   width: 100%;
+  margin-top: 2rem;
 }
 .start-stop {
   padding: 2rem;
   background: #2efd96;
-
-  border: black solid 5px;
-  transition: 0.3s;
+  margin: 0 2rem;
+  transition: 0.2s;
   border-radius: 50%;
   font-weight: 700;
   font-size: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 button:hover {
   background-color: #4a9e74;
   color: white;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .timer-wrapper {
-  background: rgb(138, 68, 37);
-  background: radial-gradient(
-    circle,
-    rgba(138, 68, 37, 1) 30%,
-    rgba(194, 199, 109, 1) 30%,
-    rgba(118, 152, 93, 1) 100%
-  );
-  border-radius: 50%;
-  border: black solid 10px;
   color: white;
   width: 35rem;
   padding: 3rem;
   margin: 0 auto;
+  background-color: #c5ed65;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }

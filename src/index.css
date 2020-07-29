@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
-
+*{
+  box-sizing: border-box;
+}
+html{
+  height:100%;
+}
+#root{
+  height:100vh;
+}
 body {
   margin: 0;
+  height:100vh;
   font-family: 'Fredoka One', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
