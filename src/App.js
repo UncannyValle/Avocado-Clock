@@ -8,21 +8,23 @@ import { Reset } from "./components/reset";
 const App = () => {
   //State
   const [breakie, setBreakie] = useState(5);
-  const [minutes, setMinutes] = useState(25);
+  const [minutes, setMinutes] = useState(0);
   const [session, setSession] = useState(25);
-  const [timer, setTimer] = useState("START");
+  const [timer, setTimer] = useState("25:00");
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
   const [message, setMessage] = useState("Get To Work!");
-  const [moment, setMoment] = useState("work");
+  const [moment, setMoment] = useState("start");
 
   const timerButton = () => {
     !running ? setRunning(true) : setMessage("Paused!");
 
-    if (timer === "START" && session >= 10) {
+    if (moment === "start" && session >= 10) {
       setMinutes(session);
-    } else if (timer === "START" && session < 10) {
+      setMoment("work");
+    } else if (moment === "start" && session < 10) {
       setMinutes(session);
+      setMoment("work");
       setTimer("0" + minutes + ":0" + seconds);
     } else if (message === "Paused!" && moment === "work" && running) {
       setMessage("Get To Work!");
@@ -32,7 +34,39 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (minutes > 10 && seconds === -1 && running) {
+    if (running === false) {
+      setSeconds(0);
+      setMinutes(0);
+      setMessage("Get To Work!");
+      setTimer("25:00");
+    } else if (running && message !== "Paused!" && seconds >= 10) {
+      setTimeout(() => {
+        setSeconds(seconds - 1);
+        setTimer(() => {
+          if (minutes >= 10) {
+            return minutes + ":" + seconds;
+          } else {
+            return "0" + minutes + ":" + seconds;
+          }
+        });
+      }, 1000);
+    } else if (
+      running &&
+      message !== "Paused!" &&
+      seconds >= 0 &&
+      seconds < 10
+    ) {
+      setTimeout(() => {
+        setSeconds(seconds - 1);
+        setTimer(() => {
+          if (minutes >= 10) {
+            return minutes + ":0" + seconds;
+          } else {
+            return "0" + minutes + ":0" + seconds;
+          }
+        });
+      }, 1000);
+    } else if (minutes > 10 && seconds === -1 && running) {
       setSeconds(59);
       setMinutes(minutes - 1);
       setTimer(minutes + ":00");
@@ -62,57 +96,40 @@ const App = () => {
       setMinutes(session - 1);
       setSeconds(59);
       setMoment("Get To Work!");
-    } else if (running && seconds >= 10) {
-      setTimeout(() => {
-        setSeconds(seconds - 1);
-        setTimer(() => {
-          if (minutes >= 10) {
-            return minutes + ":" + seconds;
-          } else {
-            return "0" + minutes + ":" + seconds;
-          }
-        });
-      }, 1000);
-    } else if (running && seconds >= 0 && seconds < 10) {
-      setTimeout(() => {
-        setSeconds(seconds - 1);
-        setTimer(() => {
-          if (minutes >= 10) {
-            return minutes + ":0" + seconds;
-          } else {
-            return "0" + minutes + ":0" + seconds;
-          }
-        });
-      }, 1000);
-    } else if (running === false) {
-      setSeconds(0);
-      setTimer("START");
-      setMinutes(25);
     }
-  }, [minutes, seconds, running, breakie, session, moment]);
+  }, [minutes, seconds, running, breakie, session, moment, message]);
 
   const decreaseBreakie = () => {
     if (breakie > 1) {
-      setBreakie(breakie - 1);
+      if (!running) {
+        setBreakie(breakie - 1);
+      }
     }
   };
   const increaseBreakie = () => {
     if (breakie < 60) {
-      setBreakie(breakie + 1);
+      if (!running) {
+        setBreakie(breakie + 1);
+      }
     }
   };
   const decreaseSession = () => {
     if (session > 1) {
-      setSession(session - 1);
+      if (!running) {
+        setSession(session - 1);
+      }
     }
   };
   const increaseSession = () => {
-    if (minutes < 60) {
-      setSession(session + 1);
+    if (session < 60) {
+      if (!running) {
+        setSession(session + 1);
+      }
     }
   };
   const resetNow = () => {
     setRunning(false);
+    setMoment("start");
     setBreakie(5);
     setSession(25);
   };
@@ -149,10 +166,10 @@ const App = () => {
           {session}
         </Parameter>
       </div>
-      <h1 id="timer-label">{message} </h1>
-      <Timer>{timer}</Timer>
-      <div id="buttons">
+      <div className="timer-wrapper">
+        <h1 id="timer-label">{message} </h1>
         <StartStop clickHandler={timerButton} />
+        <Timer>{timer}</Timer>
         <Reset clickHandler={resetNow} />
       </div>
     </div>
