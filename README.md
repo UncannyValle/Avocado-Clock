@@ -1,4 +1,4 @@
-# Foobar
+# The Avocado Clock
 
 A productivity timer that uses the Pomodoro technique! Built with React
 ## Installation
