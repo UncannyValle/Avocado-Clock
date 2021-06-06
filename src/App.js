@@ -24,13 +24,16 @@ const App = () => {
     if (moment === "start" && session >= 10) {
       setMinutes(session);
       setMoment("work");
-    } else if (moment === "start" && session < 10) {
+    } 
+    if (moment === "start" && session < 10) {
       setMinutes(session);
       setMoment("work");
       setTimer("0" + minutes + ":0" + seconds);
-    } else if (message === "Paused!" && moment === "work" && running) {
+    } 
+    if (message === "Paused!" && moment === "work" && running) {
       setMessage("Get To Work!");
-    } else if (message === "Paused!" && moment === "play" && running) {
+    } 
+    if (message === "Paused!" && moment === "play" && running) {
       setMessage("Chill for a bit");
     }
   };
@@ -151,10 +154,11 @@ const App = () => {
         <h1 id="title">The Avocado Clock</h1>
         <p>
           A more delicious task clock! Set how long your break should be and how
-          long you should work! <br/> Once set you can't go back unless you reset. Commit to your time and let's get productive!
+          long you should work! <br /> Once set you can't go back unless you
+          reset. Commit to your time and let's get productive!
         </p>{" "}
       </div>
-      <hr />
+
       <div id="times">
         <Parameter
           title="How long is your break?"
@@ -170,6 +174,10 @@ const App = () => {
         <div className="timer-wrapper">
           <h1 id="timer-label">{message} </h1>
           <Timer>{timer}</Timer>
+          <div className="buttons">
+            <StartStop clickHandler={timerButton} />
+            <Reset clickHandler={resetNow} />
+          </div>
         </div>
         <Parameter
           title="How long are you working for?"
@@ -182,10 +190,6 @@ const App = () => {
         >
           {session}
         </Parameter>
-      </div>
-      <div className="buttons">
-        <StartStop clickHandler={timerButton} />
-        <Reset clickHandler={resetNow} />
       </div>
     </div>
   );
