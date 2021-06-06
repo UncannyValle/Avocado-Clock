@@ -1,12 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated } from "react-spring";
 
 const Parameter = (props) => {
   const show = useSpring({
     opacity: 1,
-    // config: config.molasses,
     from: {
       opacity: 0,
     },
